@@ -23,12 +23,13 @@ RUN apt-get -y install \
     libhdf5-serial-dev \
     libprotobuf-dev \
     librdkit-dev \
+    linux-headers-generic \
     protobuf-compiler \
     python3-dev \
     python3-numpy \
     python3-pip \
     software-properties-common \
-    software-properties-common \
+    swig \
     wget
 
 # We need a more recent version of cmake than 18.04 has by default
@@ -42,8 +43,6 @@ RUN apt-get -y install cmake
 
 # Install CUDA
 # See https://docs.nvidia.com/cuda/cuda-installation-guide-linux/
-
-RUN apt-get -y install linux-headers-generic
 
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
 RUN mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
@@ -65,9 +64,10 @@ RUN wget https://github.com/openbabel/openbabel/releases/download/openbabel-3-1-
 RUN tar xf openbabel-3.1.1-source.tar.bz2
 RUN mkdir build
 WORKDIR build
-RUN cmake ../openbabel-3.1.1 -DPYTHON_BINDINGS=ON
+RUN cmake ../openbabel-3.1.1 -DPYTHON_BINDINGS=ON -DBUILD_GUI=OFF
 RUN make -j4
 RUN make install
+RUN obabel --help
 
 # Install libmolgrid
 # See https://github.com/gnina/libmolgrid
@@ -91,12 +91,12 @@ RUN git clone https://github.com/gnina/gnina.git
 WORKDIR gnina
 RUN mkdir build
 WORKDIR build
-RUN cmake ..
+RUN cmake .. -DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
 RUN make
 RUN make install
 
-# Create a volume that we can mount externally for code and such
 VOLUME /code
+# Create a volume that we can mount externally for code and such
 
 # Run a shell by default for interactive testing
 
