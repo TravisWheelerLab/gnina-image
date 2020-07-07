@@ -55,6 +55,30 @@ ENV PATH=/usr/local/cuda-11.0/bin:$PATH
 RUN ls /usr/local/cuda-11.0/
 ENV CUDACXX=nvcc
 
+# Install maeparser
+# See https://github.com/schrodinger/maeparser
+RUN mkdir /maeparser
+WORKDIR /maeparser
+RUN git clone https://github.com/schrodinger/maeparser.git
+WORKDIR maeparser
+#RUN git checkout v1.2.3
+RUN mkdir build
+WORKDIR build
+RUN cmake ..
+RUN make -j install
+
+# Install coordgen
+# See https://github.com/schrodinger/coordgenlibs
+RUN mkdir /coordgen
+WORKDIR /coordgen
+RUN git clone https://github.com/schrodinger/coordgenlibs.git
+WORKDIR coordgenlibs
+#RUN git checkout v1.4.1
+RUN mkdir build
+WORKDIR build
+RUN cmake ..
+RUN make -j install
+
 # Install OpenBabel
 # See https://open-babel.readthedocs.io/en/latest/Installation/install.html
 
@@ -78,7 +102,7 @@ RUN pip3 install numpy pytest pyquaternion
 RUN git clone https://github.com/gnina/libmolgrid.git
 RUN mkdir -p libmolgrid/build
 WORKDIR libmolgrid/build
-RUN cmake .. -DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
+RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
 RUN make -j4
 RUN make install
 
@@ -91,15 +115,15 @@ RUN git clone https://github.com/gnina/gnina.git
 WORKDIR gnina
 RUN mkdir build
 WORKDIR build
-RUN cmake .. -DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
-RUN make
-RUN make install
+#RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
+#RUN make
+#RUN make install
 
-VOLUME /code
+#VOLUME /code
 # Create a volume that we can mount externally for code and such
 
 # Run a shell by default for interactive testing
 
-WORKDIR /code
-ENTRYPOINT /bin/sh
+#WORKDIR /code
+ENTRYPOINT /bin/bash
 
