@@ -111,16 +111,17 @@ RUN make install
 
 RUN mkdir /gnina
 WORKDIR /gnina
-RUN git clone https://github.com/gnina/gnina.git
+RUN git clone https://github.com/glesica/gnina.git
 WORKDIR gnina
+RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
-#RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
-#RUN make
-#RUN make install
+RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
+RUN make -j4
+RUN make install
 
-#VOLUME /code
 # Create a volume that we can mount externally for code and such
+#VOLUME /code
 
 # Run a shell by default for interactive testing
 
