@@ -117,8 +117,8 @@ RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
 RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
-RUN make -j4
-RUN make install
+#RUN make -j4
+#RUN make install
 
 # Create a volume that we can mount externally for code and such
 #VOLUME /code
