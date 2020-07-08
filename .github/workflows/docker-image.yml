@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: docker/build-push-action@v1
+      with:
+        repository: traviswheelerlab/gnina
+        push: false
+
+  push:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        repository: traviswheelerlab/gnina
+        tag_with_ref: true
+        tag_with_sha: true
+        push: ${{ startsWith(github.ref, 'refs/tags/') }}
+
