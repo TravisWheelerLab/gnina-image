@@ -102,7 +102,7 @@ RUN pip3 install numpy pytest pyquaternion
 RUN git clone https://github.com/gnina/libmolgrid.git
 RUN mkdir -p libmolgrid/build
 WORKDIR libmolgrid/build
-RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
+RUN cmake ..
 RUN make -j4
 RUN make install
 
@@ -116,15 +116,15 @@ WORKDIR gnina
 RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
-RUN cmake .. #-DOPENBABEL3_INCLUDE_DIR=/usr/local/include/openbabel3
-#RUN make -j4
-#RUN make install
+RUN cmake ..
+RUN sed -i 's/^all: test\/all/# all: test\/all/' CMakeFiles/Makefile2
+RUN make -j4
+RUN make install
 
 # Create a volume that we can mount externally for code and such
-#VOLUME /code
+VOLUME /code
 
-# Run a shell by default for interactive testing
-
-#WORKDIR /code
+# Run a shell in the code directory by default for interactive testing
+WORKDIR /code
 ENTRYPOINT /bin/bash
 
