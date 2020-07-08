@@ -7,16 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker/build-push-action@v1
-      with:
-        repository: traviswheelerlab/gnina
-        push: false
-
-  push:
+  build-and-push:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v2
