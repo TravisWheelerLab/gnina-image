@@ -8,6 +8,6 @@
 CODE_DIR=${CODE_DIR:-$PWD}
 
 docker run \
-    --mount src="${CODE_DIR}",target=/code,type=bind \
+    -it --mount src="${CODE_DIR}",target=/code,type=bind \
     traviswheelerlab/gnina:latest
 
