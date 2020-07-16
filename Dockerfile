@@ -126,5 +126,5 @@ VOLUME /code
 
 # Run a shell in the code directory by default for interactive testing
 WORKDIR /code
-ENTRYPOINT /bin/bash
+CMD ["/bin/bash"]
 
