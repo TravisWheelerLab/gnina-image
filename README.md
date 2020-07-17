@@ -3,6 +3,28 @@
 # gnina Docker Image
 
 A Docker image that can be used to run [gnina](https://github.com/gnina/gnina).
+The image can be found on
+[Docker Hub](https://hub.docker.com/repository/docker/traviswheelerlab/gnina).
+It can be run interactively with the following:
+
+```
+$ docker run \
+    -it --volume "$PWD":/code:rw \
+    traviswheelerlab/gnina:latest
+```
+
+
+or noninteractively with the following:
+
+```
+$ docker run \
+    --volume "$PWD":/code:rw \
+    traviswheelerlab/gnina:latest ./my_gnina_app
+```
+
+Both of these commands will mount the current working directory within the
+container at `/code`. This directory will also start out as the current working
+directory within the running container.
 
 ## Description
 
