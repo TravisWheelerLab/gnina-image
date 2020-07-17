@@ -117,7 +117,7 @@ RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
 RUN cmake ..
-RUN sed -i 's/^all: test\/all/# all: test\/all/' CMakeFiles/Makefile2
+#RUN sed -i 's/^all: test\/all/# all: test\/all/' CMakeFiles/Makefile2
 RUN make -j4
 RUN make install
 

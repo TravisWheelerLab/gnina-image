@@ -4,5 +4,5 @@
 # This requires being logged into Docker Hub with sufficient permissions within
 # the organization.
 
-docker build -t traviswheelerlab/gnina .
+docker build -t traviswheelerlab/gnina:builderror .
 
