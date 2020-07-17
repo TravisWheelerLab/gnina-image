@@ -88,7 +88,12 @@ RUN wget https://github.com/openbabel/openbabel/releases/download/openbabel-3-1-
 RUN tar xf openbabel-3.1.1-source.tar.bz2
 RUN mkdir build
 WORKDIR build
-RUN cmake ../openbabel-3.1.1 -DPYTHON_BINDINGS=ON -DBUILD_GUI=OFF
+RUN cmake ../openbabel-3.1.1 \
+    -DPYTHON_BINDINGS=ON \
+    -DBUILD_GUI=OFF \
+    -DPYTHON_EXECUTABLE=/usr/bin/python3 \
+    -DWITH_COORDGEN=0 \
+    -DWITH_MAEPARSER=0
 RUN make -j4
 RUN make install
 RUN obabel --help
