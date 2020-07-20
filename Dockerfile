@@ -88,7 +88,12 @@ RUN wget https://github.com/openbabel/openbabel/releases/download/openbabel-3-1-
 RUN tar xf openbabel-3.1.1-source.tar.bz2
 RUN mkdir build
 WORKDIR build
-RUN cmake ../openbabel-3.1.1 -DPYTHON_BINDINGS=ON -DBUILD_GUI=OFF
+RUN cmake ../openbabel-3.1.1 \
+    -DPYTHON_BINDINGS=ON \
+    -DBUILD_GUI=OFF \
+    -DPYTHON_EXECUTABLE=/usr/bin/python3 \
+    -DWITH_COORDGEN=0 \
+    -DWITH_MAEPARSER=0
 RUN make -j4
 RUN make install
 RUN obabel --help
@@ -111,13 +116,11 @@ RUN make install
 
 RUN mkdir /gnina
 WORKDIR /gnina
-RUN git clone https://github.com/glesica/gnina.git
+RUN git clone https://github.com/gnina/gnina.git
 WORKDIR gnina
-RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
 RUN cmake ..
-RUN sed -i 's/^all: test\/all/# all: test\/all/' CMakeFiles/Makefile2
 RUN make -j4
 RUN make install
 
