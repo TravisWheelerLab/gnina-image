@@ -116,13 +116,11 @@ RUN make install
 
 RUN mkdir /gnina
 WORKDIR /gnina
-RUN git clone https://github.com/glesica/gnina.git
+RUN git clone https://github.com/gnina/gnina.git
 WORKDIR gnina
-RUN git checkout build-for-docker
 RUN mkdir build
 WORKDIR build
 RUN cmake ..
-#RUN sed -i 's/^all: test\/all/# all: test\/all/' CMakeFiles/Makefile2
 RUN make -j4
 RUN make install
 
