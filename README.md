@@ -1,5 +1,11 @@
 ![Docker Image CI](https://github.com/TravisWheelerLab/gnina-image/workflows/Docker%20Image%20CI/badge.svg)
 
+**Note: This project is unmaintained**
+
+The gnina project now offers its own Docker images, so users who want to run
+gnina in a container should use those instead. See:
+<https://hub.docker.com/u/gnina>.
+
 # gnina Docker Image
 
 A Docker image that can be used to run [gnina](https://github.com/gnina/gnina).
